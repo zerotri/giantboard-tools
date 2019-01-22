@@ -86,12 +86,6 @@
 				pinctrl-0 = <&pinctrl_spi0_default>;
 				cs-gpios = <&pioA PIN_PB1 0>, <0>, <0>, <0>;
 				status = "okay";
-
-				spidev@0 {
-					compatible = "linux,spidev";
-					spi-max-frequency = <24000000>;
-					reg = <0>;
-				};
 			};
 
 			uart1: serial@f8020000 {
