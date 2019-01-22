@@ -129,7 +129,13 @@ built_release="$(${cross_make} --no-print-directory -s kernelrelease 2>/dev/null
 echo "version: $version"
 echo "release: $release"
 ${cross_make}
-${cross_make} dtbs
+
+# here we need to pass "-@" to dtc as we build the system dtbs
+# this exports symbols and makes working with device tree overlays much simpler
+# NOTE: this comes at the cost of file size.
+# TODO: make this an optional specifier, only enabled when the 'dt_configfs' patchset is used
+${cross_make} zImage dtbs DTC_FLAGS="-@"
+
 ${cross_make} modules
 ${cross_make} modules_install INSTALL_MOD_PATH="${modules_dir}"
 echo "done building.."
